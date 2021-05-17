@@ -32,6 +32,11 @@ function DriverGame () {
     led.plot(position, 4)
     return 0
 }
+function gameOver () {
+    basic.showIcon(IconNames.No)
+    basic.pause(1000)
+    basic.showNumber(score)
+}
 input.onButtonPressed(Button.AB, function () {
     state = 0
     score = 0
@@ -65,9 +70,7 @@ basic.forever(function () {
     if (state == 0) {
         DriverGame()
     } else if (state == 1) {
-        basic.showIcon(IconNames.No)
-        basic.pause(1000)
-        basic.showNumber(score)
+        gameOver()
     }
     basic.pause(v)
 })
