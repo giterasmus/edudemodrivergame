@@ -24,7 +24,7 @@ function FahrerTrainer () {
 }
 function SpielEnde () {
     basic.clearScreen()
-    Geschwindigkeit = 1
+    Geschwindigkeit = 0
     basic.showIcon(IconNames.No)
 }
 input.onButtonPressed(Button.A, function () {
@@ -96,7 +96,7 @@ let fahrerXPosition = 0
 let zustand = 0
 zustand = 4
 fahrerXPosition = 0
-Geschwindigkeit = 1
+Geschwindigkeit = 0
 Spielstand = 0
 freieXPosition = 0
 // Lösche das Feld
