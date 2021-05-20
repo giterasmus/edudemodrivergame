@@ -1,30 +1,20 @@
-/**
- * Weiterentwicklung von DriverGame
- */
 function FahrerTrainer () {
     basic.clearScreen()
-    if (BegrenzungslichterPosition == 5) {
-        if (keinHindernis != position) {
+    if (begrenzungsLichterPosition == 5) {
+        if (freiePosition != fahrerPosition) {
             zustand = 1
         } else {
             Spielstand += 1
             erhöheV(Spielstand)
         }
-        BegrenzungslichterPosition = 0
-        keinHindernis = randint(0, 4)
-        BegrenzungsLichter = []
-        for (let i = 0; i <= 4; i++) {
-            if (keinHindernis != i) {
-                BegrenzungsLichter.push(i)
-            }
-        }
+        initialisiereBegrenzungsLichter()
         return 0
     }
     for (let j = 0; j <= 3; j++) {
-        led.plot(BegrenzungsLichter[j], BegrenzungslichterPosition)
+        led.plot(BegrenzungsLichter[j], begrenzungsLichterPosition)
     }
-    BegrenzungslichterPosition += 1
-    led.plot(position, 4)
+    begrenzungsLichterPosition += 1
+    led.plot(fahrerPosition, 4)
     return 0
 }
 function SpielEnde () {
@@ -34,13 +24,16 @@ function SpielEnde () {
     basic.pause(200)
 }
 input.onButtonPressed(Button.A, function () {
-    if (position == 0) {
-        position = 1
+    if (fahrerPosition == 0) {
+        fahrerPosition = 1
     }
-    led.unplot(position, 4)
-    position += -1
-    led.plot(position, 4)
+    led.unplot(fahrerPosition, 4)
+    fahrerPosition += -1
+    led.plot(fahrerPosition, 4)
 })
+/**
+ * Weiterentwicklung von DriverGame
+ */
 input.onButtonPressed(Button.AB, function () {
     zustand = 0
     Spielstand = 0
@@ -52,24 +45,34 @@ function erhöheV (SpSt: number) {
     }
 }
 input.onButtonPressed(Button.B, function () {
-    if (position == 4) {
-        position = 3
+    if (fahrerPosition == 4) {
+        fahrerPosition = 3
     }
-    led.unplot(position, 4)
-    position += 1
-    led.plot(position, 4)
+    led.unplot(fahrerPosition, 4)
+    fahrerPosition += 1
+    led.plot(fahrerPosition, 4)
 })
+function initialisiereBegrenzungsLichter () {
+    begrenzungsLichterPosition = 0
+    freiePosition = randint(0, 4)
+    BegrenzungsLichter = []
+    for (let i = 0; i <= 4; i++) {
+        if (freiePosition != i) {
+            BegrenzungsLichter.push(i)
+        }
+    }
+}
 let BegrenzungsLichter: number[] = []
-let keinHindernis = 0
+let freiePosition = 0
 let Geschwindigkeit = 0
-let BegrenzungslichterPosition = 0
-let position = 0
+let begrenzungsLichterPosition = 0
+let fahrerPosition = 0
 let zustand = 0
 let Spielstand = 0
 Spielstand = 0
 zustand = 0
-position = 0
-BegrenzungslichterPosition = 5
+fahrerPosition = 0
+begrenzungsLichterPosition = 5
 Geschwindigkeit = 1000
 basic.forever(function () {
     if (zustand == 0) {
